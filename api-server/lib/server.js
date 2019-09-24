@@ -2,7 +2,6 @@
 
 const express = require('express');
 const logger = require('./middleware/logger');
-const colorLogger = require('./middleware/color-logger');
 const errorHandler = require('./middleware/error-handler');
 
 const app = express();
@@ -34,6 +33,28 @@ app.post('/categories', (req, res, next) => {
   record.id = Math.random();
   db.push(record);
   res.json(record);
+});
+
+let validator = () => {
+  let validity = req.valid;
+  if(Math.random() >= .5){
+    validity = true;
+  } else {
+    validity = false;
+  }
+  return validity;
+};
+
+// Route to get random validity
+app.post('/categories', (req, res, next) => {
+  let record = req.body;
+  record.id = Math.random();
+  if(validator() === true) {
+    db.push(record);
+    res.json(record);
+  } else {
+    throw new Error('internal server error');
+  }
 });
 
 app.use(errorHandler);
