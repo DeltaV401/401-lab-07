@@ -16,7 +16,11 @@ let db = [];
 // Route to Get All Categories
 app.get('/', (req, res, next) => {
   res.send('We\'re here! We\'re here everybody! We are here. We are here. We are here.');
-})
+});
+
+app.get('/500', () => {
+  throw new Error('internal server error');
+});
 
 app.get('/categories', (req, res, next) => {
   let count = db.length;
@@ -32,9 +36,11 @@ app.post('/categories', (req, res, next) => {
   res.json(record);
 });
 
+app.use(errorHandler);
+
 // Don't listen if imported into tests
 if (!module.parent) {
-  let PORT = process.env.PORT || 8080;
+  let PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 }
 
@@ -42,5 +48,5 @@ module.exports = {
   server: app,
   start: port => {
     app.listen(port, () => console.log(`Listening on port ${port}`));
-  }
+  },
 };

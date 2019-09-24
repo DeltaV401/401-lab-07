@@ -6,5 +6,4 @@ module.exports = (err, req, res, next) => {
     error: err.toString(),
     status: 500,
   });
-  next();
 };

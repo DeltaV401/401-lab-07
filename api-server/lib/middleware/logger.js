@@ -1,4 +1,4 @@
-module.exports = (req, res, next) => {
+module.exports = (req, res, message, next) => {
   let startDate = new Date();
   console.log(`${req.method} ${req.path}`);
 
@@ -7,5 +7,5 @@ module.exports = (req, res, next) => {
   next();
 
   let endDate = new Date();
-  console.log(`${req.method} ${req.path} done in ${endDate - startDate}ms`);
+  console.log(`${req.method} ${req.path} done in ${endDate - startDate}ms - ${message}`);
 };
