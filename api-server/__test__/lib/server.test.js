@@ -1,7 +1,7 @@
 'use strict';
 
 
-const { server } = require('../../index.js');
+const { server } = require('../../index.js/index.js');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
 
